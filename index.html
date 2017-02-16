@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- HTML5 Hello world by kirupa - http://www.kirupa.com/html5/getting_your_feet_wet_html5_pg1.htm -->
+<html lang="en-us">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script src="script.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<head>
+<meta charset="utf-8">
+<title>SE3353 Calculator</title>
+
+<body>
+	
+OUTPUT:
+<br>
+<input type="textarea" id="output" name=""/>
+<p></p>
+INPUT:
+<br>
+<input type="textarea" id="input" name=""/>
+<p></p>
+
+<table border="0">
+<tr>
+<td><button id="num" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="numClick(1)">1</button></td>
+<td><button id="num" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="numClick(2)">2</button></td>
+<td><button id="num" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="numClick(3)">3</button></td>
+<td><button id="num" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="numClick(4)">4</button></td>
+</tr>
+<tr>
+<td><button id="num" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="numClick(5)">5</button></td>
+<td><button id="num" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="numClick(6)">6</button></td>
+<td><button id="num" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="numClick(7)">7</button></td>
+<td><button id="num" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="numClick(8)">8</button></td>
+</tr>
+<tr>
+<td><button id="num" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="numClick(9)">9</button></td>
+<td><button id="num" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="numClick(0)">0</button></td>
+<td><button id="op" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="opClick('+')">+</button></td>
+<td><button id="op" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="opClick('-')">-</button></td>
+</tr>
+<tr>
+<td><button id="op" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="opClick('*')">*</button></td>
+<td><button id="op" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="opClick('/')">/</button></td>
+<td><button id="op" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="opClick('=')">=</button></td>
+<td><button id="op" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="opClick('enter')"><i class="material-icons">keyboard_return</i></button></td>
+</tr>
+<tr>
+<td><button id="dot" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="opClick('.')">.</button></td>
+<td><button id="clear" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="opClick('clear')">C</button></td>
+<td><button id="mode" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" onclick="modeClick()">IF</button></td>
+</tr>
+</table>
+
+</body>
+
+</html>
