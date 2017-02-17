@@ -88,7 +88,17 @@ function opClick(opCode){
             }else{
                 state = 11;
             }
-        }else if ((opCode == '+')||(opCode == '-')||(opCode == '*')||(opCode == '/')) {
+        }else if (opCode == 'clear') {
+            input = "";
+            $("#input").val( input );
+            //loaded OUT
+            if (state > 8){
+                state = 9;
+            //empty OUT
+            }else{
+                state = 5;
+            }
+        }else{
             var ans = eval(output + opCode + input);
             output = ans;
             $("#output").val( ans );
@@ -158,11 +168,13 @@ function stateUpdate(){
         $("[id=op]").attr("disabled", true);
         $("#equal").attr("disabled", true);
         $("#dot").attr("disabled", true);
+        $("#clear").attr("disabled", true);
     //Value entered but not loaded
     }else if (state == 6){
         $("[id=op]").attr("disabled", true);
         $("#equal").attr("disabled", false);
         $("#dot").attr("disabled", false);
+        $("#clear").attr("disabled", false);
     //unloaded dec pressed
     }else if (state == 7){
         $("[id=op]").attr("disabled", true);
@@ -178,8 +190,10 @@ function stateUpdate(){
         $("[id=op]").attr("disabled", true);
         $("#equal").attr("disabled", true);
         $("#dot").attr("disabled", true);
+        $("#clear").attr("disabled", true);
     //value loaded, IN loaded
     }else if(state == 10){
+        $("#clear").attr("disabled", false);
         $("[id=op]").attr("disabled", false);
         $("#equal").attr("disabled", false);
         $("#dot").attr("disabled", false);
