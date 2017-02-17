@@ -24,7 +24,20 @@ function numClick(number){
     } else {
         input += number;
         $("#input").val( input );
-        state = 6;
+        $("#input").val( input );
+        //out not loaded dec mode
+        if ((state == 7)||(state == 8)){
+            state = 8;
+        //out loaded
+        } else if ((state == 9)||(state == 10)) {
+            state = 10;
+        //out loaded dec mode
+        } else if ((state == 11)||(state == 12)) {
+            state = 12;
+        //out not loaded
+        } else {
+            state = 6;
+        }
     }
     stateUpdate();
 }
@@ -51,6 +64,7 @@ function opClick(opCode){
             $("#input").val( input );
             state = 0;
         }
+    //RPN MODE
     }else{
         if (opCode == 'clear'){
             input = "";
@@ -61,14 +75,24 @@ function opClick(opCode){
             $("#output").val( ans );
             input = "";
             $("#input").val( input );
-            state = 7;
+            state = 9;
+        }else if (opCode == ".") {
+            input += opCode;
+            $("#input").val( input );
+            //enter dec mode for unloaded
+            if (state == 6){
+                state = 7;
+            //enter dec mode for loaded
+            }else{
+                state = 11;
+            }
         }
     }
     stateUpdate();
 }
 
 function modeClick(){
-    if (state == 0){
+    if (state < 5){
         $("#output").val( "" );
         input = "";
         $("#input").val( input );
@@ -127,11 +151,36 @@ function stateUpdate(){
     }else if (state == 6){
         $("[id=op]").attr("disabled", true);
         $("#equal").attr("disabled", false);
-        $("#dot").attr("disabled", true);
-    //value loaded
-    }else if(state == 7){
+        $("#dot").attr("disabled", false);
+    //unloaded dec pressed
+    }else if (state == 7){
         $("[id=op]").attr("disabled", true);
         $("#equal").attr("disabled", true);
+        $("#dot").attr("disabled", true);
+    //unloaded dec mode
+    }else if (state == 8){
+        $("[id=op]").attr("disabled", true);
+        $("#equal").attr("disabled", false);
+        $("#dot").attr("disabled", true);
+    //value loaded, IN empty
+    }else if(state == 9){
+        $("[id=op]").attr("disabled", true);
+        $("#equal").attr("disabled", true);
+        $("#dot").attr("disabled", true);
+    //value loaded, IN loaded
+    }else if(state == 10){
+        $("[id=op]").attr("disabled", false);
+        $("#equal").attr("disabled", false);
+        $("#dot").attr("disabled", false);
+    //loaded dec pressed
+    }else if (state == 11){
+        $("[id=op]").attr("disabled", true);
+        $("#equal").attr("disabled", true);
+        $("#dot").attr("disabled", true);
+    //unloaded dec mode
+    }else if (state == 12){
+        $("[id=op]").attr("disabled", false);
+        $("#equal").attr("disabled", false);
         $("#dot").attr("disabled", true);
     }
 }
