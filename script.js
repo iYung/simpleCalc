@@ -1,9 +1,9 @@
 var state = 0;
 //INFIX
-//0 is empty, 1 is not, 2 is number entered, 3 is period entered
-//4 is when currently in dec
+//0 is empty, 1 is not, 2 is number entered, 3 is when dec entered
+//4 is dec mode
 //RPN
-//5 is empty, 6 is not
+//5 is IN EMPTY, OUT EMPTY; 6 is IN LOADED, OUT EMPTY; 7 is IN EMPTY, OUT LOADED
 var input = "";
 
 $(document).ready(function(){
@@ -12,7 +12,7 @@ $(document).ready(function(){
 
 function numClick(number){
     //INFIX MODE
-    if (state < 4){
+    if (state < 5){
         input += number;
         $("#input").val( input );
         if ((state == 3)||(state == 4)){
@@ -20,47 +20,63 @@ function numClick(number){
         } else {
             state = 2;
         }
-        stateUpdate();
+    //RPN MODE
     } else {
-        
+        input += number;
+        $("#input").val( input );
+        state = 6;
     }
+    stateUpdate();
 }
 
 function opClick(opCode){
     //INFIX MODE
-    if (state < 4){
+    if (state < 5){
         if (opCode == 'clear'){
             input = "";
             $("#input").val( input );
             state = 0;
-            stateUpdate();
         } else if ((opCode == '+')||(opCode == '-')||(opCode == '*')||(opCode == '/')) {
             input += opCode;
             $("#input").val( input );
             state = 1;
-            stateUpdate();
         } else if (opCode == ".") {
             input += opCode;
             $("#input").val( input );
             state = 3;
-            stateUpdate();
         } else if (opCode == "=") {
             var ans = eval(input);
             $("#output").val( ans );
             input = "";
             $("#input").val( input );
             state = 0;
-            stateUpdate();
         }
     }else{
-        
+        if (opCode == 'clear'){
+            input = "";
+            $("#input").val( input );
+            state = 5;
+        }else if (opCode == "="){
+            var ans = eval(input);
+            $("#output").val( ans );
+            input = "";
+            $("#input").val( input );
+            state = 7;
+        }
     }
+    stateUpdate();
 }
 
 function modeClick(){
-    if (state == '0'){
+    if (state == 0){
+        $("#output").val( "" );
+        input = "";
+        $("#input").val( input );
         state = 5;
     }else{
+        $("#output").val( "" );
+        input = "";
+        $("#input").val( input );
         state = 0;
     }
     stateUpdate();
@@ -73,33 +89,49 @@ function stateUpdate(){
         $("#mode").attr("disabled", false);
         $("#mode").text("INFIX");
         $("[id=op]").attr("disabled", true);
-        $("[id=dot]").attr("disabled", true);
+        $("#equal").attr("disabled", true);
+        $("#dot").attr("disabled", true);
+        $("#clear").attr("disabled", true);
     //NUM ENTERED, NOT EMPTY, OPs disallowed
     }else if (state == 1){
-        $("#mode").attr("disabled", true);
         $("[id=op]").attr("disabled", true);
-        $("[id=dot]").attr("disabled", true);
+        $("#equal").attr("disabled", true);
+        $("#dot").attr("disabled", true);
+        $("#clear").attr("disabled", false);
     //OPs allowed
     }else if (state == 2){
-        $("#mode").attr("disabled", true);
         $("[id=op]").attr("disabled", false);
-        $("[id=dot]").attr("disabled", false);
+        $("#equal").attr("disabled", false);
+        $("#dot").attr("disabled", false);
+        $("#clear").attr("disabled", false);
     //DECI STATE, current value has deci, funcs allowed
     }else if (state == 3){
-        $("#mode").attr("disabled", true);
         $("[id=op]").attr("disabled", true);
-        $("[id=dot]").attr("disabled", true);
+        $("#equal").attr("disabled", true);
+        $("#dot").attr("disabled", true);
+        $("#clear").attr("disabled", false);
     //DECI STATE, current value has deci
     }else if (state == 4){
-        $("#mode").attr("disabled", true);
         $("[id=op]").attr("disabled", false);
-        $("[id=dot]").attr("disabled", true);
+        $("#equal").attr("disabled", false);
+        $("#dot").attr("disabled", true);
+        $("#clear").attr("disabled", false);
     //RPN Mode
     //EMPTY STATE
     }else if(state == 5){
-        $("#mode").attr("disabled", false);
         $("#mode").text("RPN");
         $("[id=op]").attr("disabled", true);
-        $("[id=dot]").attr("disabled", true);
+        $("#equal").attr("disabled", true);
+        $("#dot").attr("disabled", true);
+    //Value entered but not loaded
+    }else if (state == 6){
+        $("[id=op]").attr("disabled", true);
+        $("#equal").attr("disabled", false);
+        $("#dot").attr("disabled", true);
+    //value loaded
+    }else if(state == 7){
+        $("[id=op]").attr("disabled", true);
+        $("#equal").attr("disabled", true);
+        $("#dot").attr("disabled", true);
     }
 }
