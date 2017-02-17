@@ -5,6 +5,7 @@ var state = 0;
 //RPN
 //5 is IN EMPTY, OUT EMPTY; 6 is IN LOADED, OUT EMPTY; 7 is IN EMPTY, OUT LOADED
 var input = "";
+var output = "";
 
 $(document).ready(function(){
     stateUpdate();
@@ -23,7 +24,6 @@ function numClick(number){
     //RPN MODE
     } else {
         input += number;
-        $("#input").val( input );
         $("#input").val( input );
         //out not loaded dec mode
         if ((state == 7)||(state == 8)){
@@ -59,6 +59,7 @@ function opClick(opCode){
             state = 3;
         } else if (opCode == "=") {
             var ans = eval(input);
+            output = ans;
             $("#output").val( ans );
             input = "";
             $("#input").val( input );
@@ -72,6 +73,7 @@ function opClick(opCode){
             state = 5;
         }else if (opCode == "="){
             var ans = eval(input);
+            output = ans;
             $("#output").val( ans );
             input = "";
             $("#input").val( input );
@@ -86,6 +88,13 @@ function opClick(opCode){
             }else{
                 state = 11;
             }
+        }else if ((opCode == '+')||(opCode == '-')||(opCode == '*')||(opCode == '/')) {
+            var ans = eval(output + opCode + input);
+            output = ans;
+            $("#output").val( ans );
+            input = "";
+            $("#input").val( input );
+            state = 9;
         }
     }
     stateUpdate();
@@ -93,12 +102,14 @@ function opClick(opCode){
 
 function modeClick(){
     if (state < 5){
-        $("#output").val( "" );
+        output = "";
+        $("#output").val( output );
         input = "";
         $("#input").val( input );
         state = 5;
     }else{
-        $("#output").val( "" );
+        output = "";
+        $("#output").val( output );
         input = "";
         $("#input").val( input );
         state = 0;
