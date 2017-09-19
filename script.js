@@ -1,9 +1,11 @@
-var state = 0;
 //INFIX
 //0 is empty, 1 is not, 2 is number entered, 3 is when dec entered
 //4 is dec mode
 //RPN
 //5 is IN EMPTY, OUT EMPTY; 6 is IN LOADED, OUT EMPTY; 7 is IN EMPTY, OUT LOADED
+var state = 0;
+
+//containers for in/out values
 var input = "";
 var output = "";
 
